@@ -9,9 +9,13 @@ class ProductManager{
     
     addProduct =  async(item) =>{
         try{
-            this.products.push({id:this.id,...item});
-            this.id++;
-            await fs.promises.writeFile(this.path, JSON.stringify(this.products, null, '\t'));    
+            const data = await fs.promises.readFile(this.path, 'utf-8');
+            const productsArray = JSON.parse(data);
+            const newProduct = { id: this.id, ...item };
+            productsArray.push(newProduct);
+            this.products= [...productsArray];
+            this.id++;   
+            await fs.promises.writeFile(this.path, JSON.stringify(this.products, null, '\t'));
         }catch(err){
             console.log(err);
         }

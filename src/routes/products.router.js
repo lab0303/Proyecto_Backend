@@ -33,9 +33,25 @@ router.post('/', async (req,res)=>{
     const item = {
         nombre
     }
-
     await products.addProduct(item)
-    res.json({message: item})
+    res.json({message: 'Producto creado'})
+})
+
+router.put('/:pid', async (req,res)=>{
+    const pid = Number(req.params.pid);
+    const {nombre} = req.body;
+    const item = {
+        id: pid,
+        nombre
+    }
+    await products.updateProduct(pid,item)
+    res.json({message: 'Producto actualizado'})
+})
+
+router.delete('/:pid', async (req,res)=>{
+    const pid = Number(req.params.pid);
+    await products.deleteProduct(pid)
+    res.json({message: 'Producto eliminado'})
 })
 
 
