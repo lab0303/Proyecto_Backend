@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-class ProductManager{
+class CartManager{
     constructor(path){
         this.products = [];
         this.path = path;
@@ -83,5 +83,4 @@ class ProductManager{
     }
     
 }
-
-module.exports = ProductManager;
+module.exports = CartManager;

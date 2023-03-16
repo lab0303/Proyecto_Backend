@@ -1,7 +1,6 @@
 const { Router } = require('express');
 const ProductManager = require('../ProductsManager')
-
-const products = new ProductManager('./Products.json')
+const products = new ProductManager('./src/data/products.json')
 const router = Router();
 
 router.get('/', async (req,res)=>{
@@ -18,8 +17,7 @@ router.get('/', async (req,res)=>{
     for(let i = 0; i < limit; i++){
         newProd[i]= allProducts[i]
     }
-        res.json({ products: newProd })
-    
+        res.json({ products: newProd})
 })
 
 router.get('/:pid', async (req, res)=>{
