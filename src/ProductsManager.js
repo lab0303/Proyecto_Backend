@@ -1,9 +1,12 @@
 const fs = require('fs');
+const datosPro = require('./data/products.json')
+
 
 class ProductManager{
     constructor(path){
         this.products = [];
         this.path = path;
+        this.datosPro = 'src/data/products.json';
     }
     
     addProduct =  async(item) =>{
@@ -19,8 +22,40 @@ class ProductManager{
             console.log(err);
         }
         }
-    
 
+    addProductCarrito =  async(cid,pid) =>{
+        try{
+            const data = await fs.promises.readFile(this.path, 'utf-8');
+            const cartArray = JSON.parse(data);
+            const cart = cartArray.filter(element => element.id === cid)
+            const dataProd = await fs.promises.readFile(this.datosPro, 'utf-8');
+            const prodArray = JSON.parse(dataProd);
+            const prod = prodArray.filter(element => element.id === pid)
+            //const quantity = !prod[0].quantity ? 1 : prod[0].quantity++
+            const item ={
+                id:prod[0].id,
+               // quantity
+            }
+            cart[0].productsCart.push(item);
+            console.log(cart);
+        
+            const arrUnido = [...cartArray, ...cart].reduce((resultado, objeto) => {
+                const index = resultado.findIndex(item => item.id === objeto.id);
+                if (index === -1) {
+                  resultado.push(objeto);
+                } else {
+                  resultado[index] = objeto;
+                }
+                return resultado;
+              }, []);
+              console.log(arrUnido);
+            
+            await fs.promises.writeFile(this.path, JSON.stringify(arrUnido, null, '\t'));
+        }catch(err){
+             console.log(err);
+        }
+        }
+    
     getProduct = async() =>{
         try {
             const data = await fs.promises.readFile(this.path, 'utf-8');
