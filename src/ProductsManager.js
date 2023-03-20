@@ -1,5 +1,5 @@
 const fs = require('fs');
-const datosPro = require('./data/products.json')
+
 
 
 class ProductManager{
@@ -24,8 +24,35 @@ class ProductManager{
         }
 
     addProductCarrito =  async(cid,pid) =>{
+        const data = await fs.promises.readFile(this.datosPro, 'utf-8');
+        const products = JSON.parse(data);
+        const product = products.find(p=>p.id===pid)
+        const data1 = await fs.promises.readFile(this.path, 'utf-8');
+        const carts = JSON.parse(data1);
+        const cart = carts.find(p=>p.id===cid)
+        console.log(cart);
+        const index = cart.productsCart.findIndex((element) =>{
+            return pid === element.id;
+        })
         try{
-            const data = await fs.promises.readFile(this.path, 'utf-8');
+            if(!product){
+                console.error(`el producto ${pid} no existe`)
+                return
+              }
+              if(!cart){
+                console.error(`el carrito ${cid} no existe`)
+                return
+              }
+              if(index !== -1){
+                cart.productsCart[index].quantity++
+              }else{
+                cart.productsCart.push({
+                  id: pid,
+                  quantity: 1
+                })
+              }
+              await fs.promises.writeFile(this.path, JSON.stringify(carts, null, '\t'));
+            /*const data = await fs.promises.readFile(this.path, 'utf-8');
             const cartArray = JSON.parse(data);
             const cart = cartArray.filter(element => element.id === cid)
             const dataProd = await fs.promises.readFile(this.datosPro, 'utf-8');
@@ -50,7 +77,7 @@ class ProductManager{
               }, []);
               console.log(arrUnido);
             
-            await fs.promises.writeFile(this.path, JSON.stringify(arrUnido, null, '\t'));
+            await fs.promises.writeFile(this.path, JSON.stringify(arrUnido, null, '\t'));*/
         }catch(err){
              console.log(err);
         }
