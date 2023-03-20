@@ -30,7 +30,6 @@ class ProductManager{
         const data1 = await fs.promises.readFile(this.path, 'utf-8');
         const carts = JSON.parse(data1);
         const cart = carts.find(p=>p.id===cid)
-        console.log(cart);
         const index = cart.productsCart.findIndex((element) =>{
             return pid === element.id;
         })
@@ -52,32 +51,6 @@ class ProductManager{
                 })
               }
               await fs.promises.writeFile(this.path, JSON.stringify(carts, null, '\t'));
-            /*const data = await fs.promises.readFile(this.path, 'utf-8');
-            const cartArray = JSON.parse(data);
-            const cart = cartArray.filter(element => element.id === cid)
-            const dataProd = await fs.promises.readFile(this.datosPro, 'utf-8');
-            const prodArray = JSON.parse(dataProd);
-            const prod = prodArray.filter(element => element.id === pid)
-            //const quantity = !prod[0].quantity ? 1 : prod[0].quantity++
-            const item ={
-                id:prod[0].id,
-               // quantity
-            }
-            cart[0].productsCart.push(item);
-            console.log(cart);
-        
-            const arrUnido = [...cartArray, ...cart].reduce((resultado, objeto) => {
-                const index = resultado.findIndex(item => item.id === objeto.id);
-                if (index === -1) {
-                  resultado.push(objeto);
-                } else {
-                  resultado[index] = objeto;
-                }
-                return resultado;
-              }, []);
-              console.log(arrUnido);
-            
-            await fs.promises.writeFile(this.path, JSON.stringify(arrUnido, null, '\t'));*/
         }catch(err){
              console.log(err);
         }
