@@ -1,0 +1,16 @@
+<h2 id="products">Productos</h2>
+<p id="lista"></p>
+ 
+<h2>Agregar producto</h2>
+<form action="/api/products" method="post" enctype="multipart/form-data">
+    <input type="text" name="nombre" placeholder="Nombre">
+    <button type="submit">Agregar producto</button>
+</form>
+<h2>Eliminar producto</h2>
+<form action="/api/products" method="delete" enctype="multipart/form-data">
+    <input type="number" name="id" placeholder="ID para eliminar">
+    <button type="submit">Eliminar producto</button>
+</form>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/index.js"></script>
