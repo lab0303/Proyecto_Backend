@@ -28,6 +28,7 @@ router.get('/:pid', async (req, res)=>{
 
 router.post('/', async (req,res)=>{
     const {nombre} = req.body
+    console.log(nombre);
     const item = {
         nombre
     }

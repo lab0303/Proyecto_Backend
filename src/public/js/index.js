@@ -1,12 +1,16 @@
 const socket = io()
 const lista = document.getElementById('lista')
+const inpnombre = document.getElementById('inpnombre')
 
+const value  = inpnombre.value;
+console.log(value);
 socket.on('productos', productos =>{
     let list = ''
     productos.forEach(item=>{
         list = list + `${item.id}----${item.nombre}</br>`
     })
     lista.innerHTML = list
+    
 })
 
 socket.emit('nuevoProducto', {id:5, nombre: 'Gaby'})

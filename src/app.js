@@ -2,8 +2,9 @@ const express = require('express');
 const handlebars = require('express-handlebars');
 const router = require('./router');
 const {Server} = require('socket.io');
-const products = require('./data/products.json');
 
+const products = require('./data/products.json');
+const ProductManager = require('./ProductsManager')
 
 const app = express();
 const port = 3000;
@@ -21,16 +22,17 @@ const httpServer = app.listen(port,()=>{
     console.log(`Servidor corriendo en puerto ${port}`);
 })
 
-let listaProd = [...products]
+const listaProd = new ProductManager('./src/data/products.json')
+listaProd.products = [...products]
 const io = new Server(httpServer)
 io.on('connection', socket =>{
-    socket.emit('productos', listaProd)
+    socket.emit('productos', listaProd.products)
     socket.on('nuevoProducto', item =>{
-        listaProd.push(item)
-        io.emit('productos', listaProd)
+        listaProd.addProduct(item)
+        io.emit('productos', listaProd.products)
     })
     socket.on('eliminarProducto', id =>{
-        listaProd = listaProd.filter(prod=> prod.id!==id)
-        io.emit('productos', listaProd)
+        listaProd.deleteProduct(id)
+        io.emit('productos', listaProd.products)
     })
 })
