@@ -2,13 +2,13 @@
 <p id="lista"></p>
  
 <h2>Agregar producto</h2>
-<form action="/api/products" method="post" enctype="multipart/form-data">
-    <input type="text" name="nombre" id="inpnombre" placeholder="Nombre">
+<form  id="formAgregar">
+    <input type="text" name="nombre" id="nombre" placeholder="Nombre">
     <button type="submit">Agregar producto</button>
 </form>
 <h2>Eliminar producto</h2>
-<form action="/api/products" method="delete" enctype="multipart/form-data">
-    <input type="number" name="id" placeholder="ID para eliminar">
+<form id="formEliminar">
+    <input type="number" name="id" id ="idPro" placeholder="ID para eliminar">
     <button type="submit">Eliminar producto</button>
 </form>
 

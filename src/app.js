@@ -27,10 +27,12 @@ listaProd.products = [...products]
 const io = new Server(httpServer)
 io.on('connection', socket =>{
     socket.emit('productos', listaProd.products)
+
     socket.on('nuevoProducto', item =>{
         listaProd.addProduct(item)
         io.emit('productos', listaProd.products)
     })
+    
     socket.on('eliminarProducto', id =>{
         listaProd.deleteProduct(id)
         io.emit('productos', listaProd.products)

@@ -1,5 +1,9 @@
 [
 	{
+		"id": 1,
+		"nombre": "luis"
+	},
+	{
 		"id": 2,
 		"nombre": "ale"
 	},
@@ -14,5 +18,9 @@
 	{
 		"id": 5,
 		"nombre": "Gaby"
+	},
+	{
+		"id": 6,
+		"nombre": "pilar"
 	}
 ]

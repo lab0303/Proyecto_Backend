@@ -1,9 +1,10 @@
 const socket = io()
 const lista = document.getElementById('lista')
-const inpnombre = document.getElementById('inpnombre')
+const formAgregar = document.getElementById('formAgregar')
+const formEliminar = document.getElementById('formEliminar')
 
-const value  = inpnombre.value;
-console.log(value);
+
+
 socket.on('productos', productos =>{
     let list = ''
     productos.forEach(item=>{
@@ -13,5 +14,25 @@ socket.on('productos', productos =>{
     
 })
 
-socket.emit('nuevoProducto', {id:5, nombre: 'Gaby'})
-socket.emit('eliminarProducto', 1)
+formAgregar.addEventListener('submit',e=>{
+    e.preventDefault()
+    const nombre = document.getElementById('nombre').value;
+    const item = {
+        nombre,
+    }
+    socket.emit('nuevoProducto', item)
+    document.getElementById('nombre').value = ''
+
+})
+
+formEliminar.addEventListener('submit',e=>{
+    e.preventDefault()
+    const idPro = Number(document.getElementById('idPro').value);
+    socket.emit('eliminarProducto', idPro)
+    document.getElementById('idPro').value = ''
+
+})
+
+
+
+
