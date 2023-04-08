@@ -4,7 +4,8 @@ const router = require('./router');
 const {Server} = require('socket.io');
 
 const products = require('./data/products.json');
-const ProductManager = require('./ProductsManager')
+const ProductManager = require('./dao/FileSystem/ProductsManager');
+const dbConnect = require('../db');
 
 const app = express();
 const port = 3000;
@@ -17,6 +18,8 @@ app.set('views', __dirname + '/views')
 app.set('view engine', 'handlebars')
 
 router(app)
+
+dbConnect()
 
 const httpServer = app.listen(port,()=>{
     console.log(`Servidor corriendo en puerto ${port}`);
