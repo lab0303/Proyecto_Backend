@@ -21,6 +21,7 @@ router(app)
 
 dbConnect()
 
+
 const httpServer = app.listen(port,()=>{
     console.log(`Servidor corriendo en puerto ${port}`);
 })
